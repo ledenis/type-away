@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+  <head>
+    <title>IME test</title>
+  </head>
+
+  <body>
+    <form action="">
+      <input id="m" autocomplete="off" />
+      <button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        $('form').submit(function(){
+          socket.emit('type', $('#m').val());
+          $('#m').val('');
+          return false;
+        });
+      });
+    </script>
+  </body>
+
+</html>
