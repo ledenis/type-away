@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const app = require('express')()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
@@ -28,7 +30,7 @@ io.on('connection', function(socket){
 })
 
 function escapeTypeMsg(msg) {
-  return msg.replace('"', '\\"')
+  return msg.replace(/"/g, '\\"')
 }
 
 http.listen(3000, function(){

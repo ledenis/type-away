@@ -1,12 +1,13 @@
 {
   "name": "ime-server",
   "version": "0.0.1",
-  "description": "",
+  "description": "Enables remote devices to input UTF-8 text to Linux GUI applications (X11) as if it is typed from the local keyboard.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "pkg": "pkg index.js --target linux --output build/ime-server-$npm_package_version"
+    "run": "index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "index.js",
   "author": "ledenis",
   "license": "MIT",
   "dependencies": {

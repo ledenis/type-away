@@ -3,6 +3,21 @@
 
   <head>
     <title>IME test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body {
+        padding: 10px;
+      }
+
+      input, button {
+        font-size: 22px;
+      }
+
+      input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    </style>
   </head>
 
   <body>
@@ -16,9 +31,13 @@
     <script>
       $(function () {
         var socket = io();
+
+        $('input').focus()
+
         $('form').submit(function(){
           socket.emit('type', $('#m').val());
           $('#m').val('');
+          $('input').focus();
           return false;
         });
       });
