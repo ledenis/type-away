@@ -8,6 +8,7 @@ const { execSync } = require('child_process')
 
 const internalIp = require('internal-ip')
 
+const qrcode = require('qrcode-terminal')
 
 const typeDelayInMs = 800
 
@@ -33,6 +34,9 @@ function escapeTypeMsg(msg) {
   return msg.replace(/"/g, '\\"')
 }
 
-http.listen(3000, function(){
-  console.log(`listening on ${internalIp.v4.sync()}:3000`)
+http.listen(3000, () => {
+  const url = `http://${internalIp.v4.sync()}:3000`
+  console.log(`Listening on ${url}`)
+  console.log('You can access the url above or scan this QR code:')
+  qrcode.generate(url, { small: true })
 })
