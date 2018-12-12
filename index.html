@@ -22,25 +22,34 @@
 
   <body>
     <form action="">
-      <input id="m" autocomplete="off" />
-      <button>Send</button>
+      <input id="input" autocomplete="off">
     </form>
+    <button id="backspace">⌫</button>
+    <button id="enter">⏎</button>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script>
-      $(function () {
-        var socket = io();
+      $(() => {
+        var socket = io()
 
-        $('input').focus()
+        $('#input').focus()
 
-        $('form').submit(function(){
-          socket.emit('type', $('#m').val());
-          $('#m').val('');
-          $('input').focus();
-          return false;
-        });
-      });
+        $('form').submit(() => {
+          socket.emit('type', $('#input').val())
+          $('#input').val('').focus()
+          return false
+        })
+
+        $('#backspace').click(() => {
+          socket.emit('key', 'BackSpace')
+          $('#input').focus()
+        })
+        $('#enter').click(() => {
+          socket.emit('key', 'Return')
+          $('#input').focus()
+        })
+      })
     </script>
   </body>
 

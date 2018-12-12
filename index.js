@@ -11,22 +11,37 @@ const internalIp = require('internal-ip')
 const qrcode = require('qrcode-terminal')
 
 const typeDelayInMs = 800
+const debug = process.env.DEBUG === 'true' || false;
 
-app.get('/', function(req, res){
+const logger = {
+  log(msg, ...params) {
+    console.log(msg, ...params)
+  },
+
+  debug(msg, ...params) {
+    debug && console.log(msg, ...params)
+  }
+}
+
+app.get('/', (_, res) => {
   res.sendFile(__dirname + '/index.html')
 })
 
-io.on('connection', function(socket){
-  console.log('a user connected')
+io.on('connection', (socket) => {
+  logger.debug('user connected')
 
-  socket.on('type', function(msg){
-    console.log('type: ' + msg)
-
+  socket.on('type', (msg) => {
+    logger.debug(`type ${msg}`)
     execSync(`xdotool type --delay ${typeDelayInMs} "${escapeTypeMsg(msg)}"`)
   })
 
-  socket.on('disconnect', function(){
-    console.log('user disconnected')
+  socket.on('key', (msg) => {
+    logger.debug(`key ${msg}`)
+    execSync(`xdotool key "${msg}"`)
+  })
+
+  socket.on('disconnect', () => {
+    logger.debug('user disconnected')
   })
 })
 
@@ -36,7 +51,7 @@ function escapeTypeMsg(msg) {
 
 http.listen(3000, () => {
   const url = `http://${internalIp.v4.sync()}:3000`
-  console.log(`Listening on ${url}`)
-  console.log('You can access the url above or scan this QR code:')
+  logger.log(`Listening on ${url}`)
+  logger.log('You can access the url above or scan this QR code:')
   qrcode.generate(url, { small: true })
 })
