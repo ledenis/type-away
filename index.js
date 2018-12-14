@@ -11,7 +11,7 @@ const internalIp = require('internal-ip')
 const qrcode = require('qrcode-terminal')
 
 const typeDelayInMs = 800
-const debug = process.env.DEBUG === 'true' || false;
+const debug = process.env.DEBUG === 'true' || false
 
 const logger = {
   log(msg, ...params) {

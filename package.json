@@ -4,7 +4,8 @@
   "description": "Enables remote devices to input UTF-8 text to Linux GUI applications (X11) as if it is typed from the local keyboard.",
   "main": "index.js",
   "scripts": {
-    "run": "index.js",
+    "start": "node index.js",
+    "dev": "DEBUG=true nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": "index.js",
@@ -15,5 +16,8 @@
     "internal-ip": "^3.0.1",
     "qrcode-terminal": "^0.12.0",
     "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
   }
 }
