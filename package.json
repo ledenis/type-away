@@ -1,5 +1,5 @@
 {
-  "name": "ime-server",
+  "name": "type-away",
   "version": "0.0.1",
   "description": "Enables remote devices to input UTF-8 text to Linux GUI applications (X11) as if it is typed from the local keyboard.",
   "main": "index.js",
@@ -12,10 +12,10 @@
   "author": "ledenis",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "internal-ip": "^3.0.1",
     "qrcode-terminal": "^0.12.0",
-    "socket.io": "^2.1.0"
+    "socket.io": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

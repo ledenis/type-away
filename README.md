@@ -1,4 +1,4 @@
-# IME server
+# Type Away
 
 > Use your smartphone to type any text (including chinese!) to your Linux PC.
 
@@ -16,13 +16,13 @@ Clients use Socket.IO to send text input to the server, which in turn emulates k
 ## Installation
 
     sudo apt-get install xdotool
-    npm install --global ime-server
+    npm install --global type-away
 
 ## Usage
 
 * Launch the server:
 
-    `ime-server`
+    `type-away`
 
 * It will output something like:
 
