@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
   <head>
     <title>Type Away</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,36 +20,45 @@
   </head>
 
   <body>
-    <form action="">
-      <input id="input" autocomplete="off">
-    </form>
-    <button id="backspace">⌫</button>
-    <button id="enter">⏎</button>
+    <div id="app">
+      <form @submit.prevent="onSubmit">
+        <input v-model="input" ref="input" autocomplete="off">
+      </form>
+      <button @click="onBackspace">⌫</button>
+      <button @click="onEnter">⏎</button>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
-      $(() => {
-        var socket = io()
-
-        $('#input').focus()
-
-        $('form').submit(() => {
-          socket.emit('type', $('#input').val())
-          $('#input').val('').focus()
-          return false
-        })
-
-        $('#backspace').click(() => {
-          socket.emit('key', 'BackSpace')
-          $('#input').focus()
-        })
-        $('#enter').click(() => {
-          socket.emit('key', 'Return')
-          $('#input').focus()
-        })
+      const socket = io()
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          input: '',
+        },
+        mounted() {
+          this.focusInput()
+        },
+        methods: {
+          onSubmit() {
+            socket.emit('type', this.input)
+            this.input = ''
+            this.focusInput();
+          },
+          onBackspace() {
+            socket.emit('key', 'BackSpace')
+            this.focusInput();
+          },
+          onEnter() {
+            socket.emit('key', 'Return')
+            this.focusInput();
+          },
+          focusInput() {
+            this.$refs.input.focus()
+          },
+        }
       })
     </script>
   </body>
-
 </html>
