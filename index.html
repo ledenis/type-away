@@ -8,13 +8,23 @@
         padding: 10px;
       }
 
+      form {
+        display: flex;
+        margin-bottom: 10px;
+      }
+
       input, button {
         font-size: 22px;
       }
 
       input {
+        box-sizing: border-box;
         width: 100%;
-        margin-bottom: 10px;
+        height: 32px;
+      }
+
+      .send {
+        height: 32px;
       }
     </style>
   </head>
@@ -23,6 +33,7 @@
     <div id="app">
       <form @submit.prevent="onSubmit">
         <input v-model="input" ref="input" autocomplete="off">
+        <button class="send">➤</button>
       </form>
       <button @click="onBackspace">⌫</button>
       <button @click="onEnter">⏎</button>
