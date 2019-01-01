@@ -2,13 +2,13 @@
   "name": "type-away",
   "version": "0.0.2",
   "description": "Enables remote devices to input UTF-8 text to Linux GUI applications (X11) as if it is typed from the local keyboard.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "DEBUG=true nodemon index.js",
+    "start": "node src/index.js",
+    "dev": "DEBUG=true nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": "index.js",
+  "bin": "src/index.js",
   "author": "ledenis",
   "license": "MIT",
   "dependencies": {
