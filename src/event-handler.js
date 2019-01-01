@@ -1,7 +1,7 @@
 const os = require('os')
 const { execSync } = require('child_process')
 const clipboardy = require('clipboardy')
-const keySender = require('node-key-sender')
+const keySender = require('node-key-sender-cmd-fix')
 const { logger } = require('./logger')
 
 const xdotoolTypeDelayInMs = 800

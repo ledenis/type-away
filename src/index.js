@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const path = require('path')
 const app = require('express')()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
@@ -9,7 +10,7 @@ const { logger } = require('./logger')
 const { typeText, pressKey } = require('./event-handler')
 
 app.get('/', (_, res) => {
-  res.sendFile(__dirname + '/index.html')
+  res.sendFile(path.join(__dirname, '../index.html'))
 })
 
 io.on('connection', (socket) => {
