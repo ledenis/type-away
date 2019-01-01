@@ -1,22 +1,38 @@
 # Type Away
 
-> Use your smartphone to type any text (including chinese!) to your Linux PC.
+> Use your smartphone to type any text (including chinese!) to your PC.
 
-This is a server which enables remote devices to input UTF-8 text to Linux GUI applications (X11) as if it is typed from the local keyboard.
+This is a server which enables remote devices to input UTF-8 text to desktop applications as if it were typed from the local keyboard.
 
-A use case would be to directly use a smartphone as a remote handwriting pad to input chinese/japanese characters. It also works well as voice input method if the device supports it.
+A use case would be to directly use a smartphone as a remote handwriting pad to write chinese/japanese characters. It also works well as voice input method if the device supports it.
 
-Clients use Socket.IO to send text input to the server, which in turn emulates keyboard input to write the text using `xdotool`.
+## How it works
+
+Clients use Socket.IO to send text input to the server, which in turn write the text using either:
+* `xdotool` (Linux only): simulate keyboard input
+* or the system clipboard + paste command (`Ctrl/Cmd` + `V`) on Windows and Mac (the latter is untested)
+
+On Linux, you can force the clipboard mode by setting the env variable `TA_USE_CLIPBOARD=true`.
 
 ## Requirements
 
 * node
-* xdotool
+
+And:
+* on Linux:
+  * xdotool 
+* on Windows and Mac (or with env variable `TA_USE_CLIPBOARD=true` on Linux)
+  * Java 8+ (used for sending paste command)
 
 ## Installation
 
-    sudo apt-get install xdotool
     npm install --global type-away
+
+on Linux:
+
+    sudo apt-get install xdotool
+
+on Windows and Mac: install Java (version 8 or above)
 
 ## Usage
 
@@ -26,11 +42,11 @@ Clients use Socket.IO to send text input to the server, which in turn emulates k
 
 * It will output something like:
 
-    `listening on 192.168.0.15:3000`
+    `Listening on http://192.168.0.15:3000`
 
-* From a remote device (such as a smartphone), open a browser that points to the given address
+* From a remote device (smartphone), open a browser and navigate to the given url
 * Input your text into the webpage
-* The text is now emulated to the focused Linux X11 application.
+* The text is now written to the focused application.
 
 ## License
 

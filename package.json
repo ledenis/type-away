@@ -12,8 +12,10 @@
   "author": "ledenis",
   "license": "MIT",
   "dependencies": {
+    "clipboardy": "^1.2.3",
     "express": "^4.16.4",
     "internal-ip": "^3.0.1",
+    "node-key-sender": "^1.0.10",
     "qrcode-terminal": "^0.12.0",
     "socket.io": "^2.2.0"
   },
