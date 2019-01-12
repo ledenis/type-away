@@ -6,6 +6,7 @@ const { logger } = require('./logger')
 
 const xdotoolTypeDelayInMs = 800
 const useXdotool = os.platform() === 'linux' && process.env.TA_USE_CLIPBOARD !== 'true'
+const isMac = os.platform() === 'darwin'
 
 module.exports = {
   typeText,
@@ -17,7 +18,11 @@ function typeText(text) {
     execSync(`xdotool type --delay ${xdotoolTypeDelayInMs} "${escapeDoubleQuotes(text)}"`)
   } else {
     clipboardy.writeSync(text)
-    keySender.sendCombination(['control', 'v'])
+    if (isMac) {
+      keySender.sendCombination(['meta', 'v'])
+    } else {
+      keySender.sendCombination(['control', 'v'])
+    }
   }
 }
 
