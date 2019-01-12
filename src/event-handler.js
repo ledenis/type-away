@@ -13,21 +13,27 @@ module.exports = {
   pressKey,
 }
 
-function typeText(text) {
+async function typeText(text) {
   if (useXdotool) {
     execSync(`xdotool type --delay ${xdotoolTypeDelayInMs} "${escapeDoubleQuotes(text)}"`)
   } else {
+    const previousContent = clipboardy.readSync()
     clipboardy.writeSync(text)
-    if (isMac) {
-      keySender.sendCombination(['meta', 'v'])
-    } else {
-      keySender.sendCombination(['control', 'v'])
-    }
+    await pasteClipboard()
+    clipboardy.writeSync(previousContent)
   }
 }
 
 function escapeDoubleQuotes(msg) {
   return msg.replace(/"/g, '\\"')
+}
+
+async function pasteClipboard() {
+  if (isMac) {
+    await keySender.sendCombination(['meta', 'v'])
+  } else {
+    await keySender.sendCombination(['control', 'v'])
+  }
 }
 
 const xdotoolKeyToKSKeyCode = {
