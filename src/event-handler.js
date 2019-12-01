@@ -1,7 +1,7 @@
 const os = require('os')
 const { execSync } = require('child_process')
 const clipboardy = require('clipboardy')
-const keySender = require('node-key-sender-cmd-fix')
+const keySender = require('node-key-sender')
 const sendkeysWindows = require('sendkeys')
 const { logger } = require('./logger')
 
