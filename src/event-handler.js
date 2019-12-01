@@ -2,10 +2,12 @@ const os = require('os')
 const { execSync } = require('child_process')
 const clipboardy = require('clipboardy')
 const keySender = require('node-key-sender-cmd-fix')
+const sendkeysWindows = require('sendkeys')
 const { logger } = require('./logger')
 
 const xdotoolTypeDelayInMs = 800
 const useXdotool = os.platform() === 'linux' && process.env.TA_USE_CLIPBOARD !== 'true'
+const isWindows = os.platform() === 'win32'
 const isMac = os.platform() === 'darwin'
 
 module.exports = {
@@ -29,27 +31,42 @@ function escapeDoubleQuotes(msg) {
 }
 
 async function pasteClipboard() {
-  if (isMac) {
+  if (isWindows) {
+    sendkeysWindows.sync('^v')
+  } else if (isMac) {
     await keySender.sendCombination(['meta', 'v'])
   } else {
     await keySender.sendCombination(['control', 'v'])
   }
 }
 
-const xdotoolKeyToKSKeyCode = {
+const xdotoolKeyToKeySenderKeyCode = {
   'Return': 'enter',
   'BackSpace': 'back_space',
+}
+const xdotoolKeyToWindowsKeyCode = {
+  'Return': '{ENTER}',
+  'BackSpace': '{BKSP}',
 }
 
 function pressKey(key) {
   if (useXdotool) {
     execSync(`xdotool key "${key}"`)
-  } else {
-    const ksKeyCode = xdotoolKeyToKSKeyCode[key]
-    if (!ksKeyCode) {
+    return;
+  }
+  if (isWindows) {
+    const winKeyCode = xdotoolKeyToWindowsKeyCode[key]
+    if (!winKeyCode) {
       logger.error(`key '${key}' not supported`)
       return
     }
-    keySender.sendKey(ksKeyCode)
+    sendkeysWindows.sync(winKeyCode)
+    return;
   }
+  const ksKeyCode = xdotoolKeyToKeySenderKeyCode[key]
+  if (!ksKeyCode) {
+    logger.error(`key '${key}' not supported`)
+    return
+  }
+  keySender.sendKey(ksKeyCode)
 }

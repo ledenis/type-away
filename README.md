@@ -20,33 +20,38 @@ On Linux, you can force the clipboard mode by setting the env variable `TA_USE_C
 
 And:
 * on Linux:
-  * xdotool 
-* on Windows and Mac (or with env variable `TA_USE_CLIPBOARD=true` on Linux)
+  * xdotool
+* on Windows:
+  * nothing special
+* on Mac (or with env variable `TA_USE_CLIPBOARD=true` on Linux)
   * Java 8+ (used for sending paste command)
 
 ## Installation
 
     npm install --global type-away
 
-on Linux:
+Then:
+* on Linux:
 
-    sudo apt-get install xdotool
+      sudo apt-get install xdotool
 
-on Windows and Mac: install Java (version 8 or above)
+* on Mac:
+    * Install Java (version 8 or above)
 
 ## Usage
 
-* Launch the server:
+1. Launch the server:
 
     `type-away`
 
-* It will output something like:
+2. It will output something like:
 
     `Listening on http://192.168.0.15:3000`
 
-* From a remote device (smartphone), open a browser and navigate to the given url
-* Input your text into the webpage
-* The text is now written to the focused application.
+3. From a remote device (smartphone), open a browser and navigate to the given url (or scan the QR code)
+4. Input your text into the webpage
+
+   The text is now written to the focused application.
 
 ## License
 
