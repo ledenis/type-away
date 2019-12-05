@@ -4,9 +4,12 @@
   "description": "Enables remote devices to input UTF-8 text to Linux GUI applications (X11) as if it is typed from the local keyboard.",
   "main": "src/index.js",
   "scripts": {
+    "postinstall": "patch-package",
     "start": "node src/index.js",
     "dev": "DEBUG=true nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pkg:win": "pkg . --target win --out-path build/",
+    "postpkg:win": "cp node_modules/clipboardy/fallbacks/windows/* build/clipboardy/"
   },
   "bin": "src/index.js",
   "author": "ledenis",
@@ -21,6 +24,8 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "patch-package": "^6.2.0",
+    "pkg": "^4.4.0"
   }
 }
