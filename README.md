@@ -12,7 +12,7 @@ Clients use Socket.IO to send text input to the server, which in turn write the 
 * `xdotool` (Linux only): simulate keyboard input
 * or the system clipboard + paste command (`Ctrl/Cmd` + `V`) on Windows and Mac (the latter is untested)
 
-On Linux, you can force the clipboard mode by setting the env variable `TA_USE_CLIPBOARD=true`.
+On Linux, you can force the clipboard mode by setting the env variable `TA_USE_CLIPBOARD` (this still uses `xdotool` for the paste command).
 
 ## Requirements
 
@@ -21,10 +21,8 @@ On Linux, you can force the clipboard mode by setting the env variable `TA_USE_C
 And:
 * on Linux:
   * xdotool
-* on Windows:
-  * nothing special
-* on Mac (or with env variable `TA_USE_CLIPBOARD=true` on Linux)
-  * Java 8+ (used for sending paste command)
+* on Windows or Mac:
+  * nothing special (uses PowerShell / AppleScript)
 
 ## Installation
 
@@ -33,10 +31,7 @@ And:
 Then:
 * on Linux:
 
-      sudo apt-get install xdotool
-
-* on Mac:
-    * Install Java (version 8 or above)
+    sudo apt-get install xdotool
 
 ## Usage
 
