@@ -2,7 +2,7 @@ const os = require('os')
 const { execSync } = require('child_process')
 const clipboardy = require('clipboardy')
 const keySender = require('node-key-sender')
-const sendkeysWindows = require('sendkeys')
+const sendkeysJs = require('sendkeys-js')
 const { logger } = require('./logger')
 
 const xdotoolTypeDelayInMs = 800
@@ -32,7 +32,7 @@ function escapeDoubleQuotes(msg) {
 
 async function pasteClipboard() {
   if (isWindows) {
-    sendkeysWindows.sync('^v')
+    sendkeysJs.send('^v')
   } else if (isMac) {
     await keySender.sendCombination(['meta', 'v'])
   } else {
@@ -60,7 +60,7 @@ function pressKey(key) {
       logger.error(`key '${key}' not supported`)
       return
     }
-    sendkeysWindows.sync(winKeyCode)
+    sendkeysJs.send(winKeyCode)
     return;
   }
   const ksKeyCode = xdotoolKeyToKeySenderKeyCode[key]
