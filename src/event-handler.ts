@@ -1,10 +1,8 @@
-export {}; // TODO: tmp https://stackoverflow.com/questions/40900791/cannot-redeclare-block-scoped-variable-in-unrelated-files
-
-const os = require('os')
-const { execSync } = require('child_process')
-const clipboardy = require('clipboardy')
-const sendkeysJs = require('sendkeys-js')
-const { logger } = require('./logger')
+import * as os from 'os'
+import { execSync } from 'child_process'
+import * as clipboardy from 'clipboardy'
+import * as sendkeysJs from 'sendkeys-js'
+import { logger } from './logger'
 
 const xdotoolTypeDelayInMs = 800
 const useClipboard = process.env.TA_USE_CLIPBOARD
@@ -12,12 +10,7 @@ const isLinux = os.platform() === 'linux'
 const isWindows = os.platform() === 'win32'
 const isMac = os.platform() === 'darwin'
 
-module.exports = {
-  typeText,
-  pressKey,
-}
-
-async function typeText(text) {
+export async function typeText(text) {
   if (isLinux && !useClipboard) {
     execSync(`xdotool type --delay ${xdotoolTypeDelayInMs} "${escapeDoubleQuotes(text)}"`)
   } else {
@@ -51,7 +44,7 @@ const xdotoolKeyToKeySenderJsMacKeyCode = {
   'BackSpace': 'bs',
 }
 
-function pressKey(key) {
+export function pressKey(key) {
   if (isLinux) {
     execSync(`xdotool key "${key}"`)
     return;
