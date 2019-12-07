@@ -1,3 +1,5 @@
+export {}; // TODO: tmp https://stackoverflow.com/questions/40900791/cannot-redeclare-block-scoped-variable-in-unrelated-files
+
 const os = require('os')
 const { execSync } = require('child_process')
 const clipboardy = require('clipboardy')
