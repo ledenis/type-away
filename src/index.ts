@@ -7,7 +7,7 @@ import * as socketIo from 'socket.io'
 import * as internalIp from 'internal-ip'
 import * as qrcode from 'qrcode-terminal'
 import { logger } from './logger'
-import { typeText, pressKey } from './event-handler'
+import { typeText, pressKey, XdotoolKey } from './event-handler'
 
 const app = express()
 const httpServer = new http.Server(app)
@@ -27,6 +27,10 @@ io.on('connection', (socket) => {
 
   socket.on('key', (key) => {
     logger.debug(`key ${key}`)
+    if (!(key in XdotoolKey)) {
+      logger.warn(`key '${key}' not supported`)
+      return
+    }
     pressKey(key)
   })
 
