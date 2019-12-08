@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import * as os from 'os'
 import * as path from 'path'
 import * as http from 'http'
 import * as express from 'express'
@@ -7,7 +8,22 @@ import * as socketIo from 'socket.io'
 import * as internalIp from 'internal-ip'
 import * as qrcode from 'qrcode-terminal'
 import { logger } from './logger'
-import { typeText, pressKey, XdotoolKey } from './event-handler'
+import { XdotoolKey, LinuxRobot, WindowsRobot, MacRobot } from './robot'
+
+const robot = createRobot()
+
+function createRobot() {
+  switch (os.platform()) {
+    case 'linux':
+      return new LinuxRobot(!!process.env.TA_USE_CLIPBOARD)
+    case 'win32':
+      return new WindowsRobot()
+    case 'darwin':
+      return new MacRobot()
+    default:
+      throw new Error(`Unsupported platform ${os.platform()}`)
+  }
+}
 
 const app = express()
 const httpServer = new http.Server(app)
@@ -22,7 +38,7 @@ io.on('connection', (socket) => {
 
   socket.on('type', (text) => {
     logger.debug(`type ${text}`)
-    typeText(text)
+    robot.typeText(text)
   })
 
   socket.on('key', (key) => {
@@ -31,7 +47,7 @@ io.on('connection', (socket) => {
       logger.warn(`key '${key}' not supported`)
       return
     }
-    pressKey(key)
+    robot.pressKey(key)
   })
 
   socket.on('disconnect', () => {
