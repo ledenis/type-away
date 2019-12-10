@@ -48,6 +48,14 @@ Then:
 
    The text is now written to the focused application.
 
+## Build
+
+If building on Windows, set shell to Git Bash for npm scripts:
+
+```
+npm config set script-shell "C:\\Program Files\\git\\bin\\bash.exe"
+```
+
 ## License
 
 MIT
