@@ -5,12 +5,13 @@
   "main": "dist/index.js",
   "bin": "dist/index.js",
   "scripts": {
+    "clean": "rm -rf dist/",
     "postinstall": "patch-package",
     "build:ts": "tsc",
     "start": "node dist/index.js",
     "dev": "DEBUG=true nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:pkg:win": "pkg . --target win --out-path dist/",
+    "build:pkg:win": "npm run clean && tsc && pkg . --target win --out-path dist/",
     "postbuild:pkg:win": "mkdir -p dist/clipboardy && cp node_modules/clipboardy/fallbacks/windows/* dist/clipboardy/"
   },
   "author": "ledenis",

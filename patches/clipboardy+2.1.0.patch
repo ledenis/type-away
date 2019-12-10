@@ -1,24 +1,24 @@
 diff --git a/node_modules/clipboardy/lib/windows.js b/node_modules/clipboardy/lib/windows.js
-index d8f2294..adc49de 100644
+index e490f5c..b9a894e 100644
 --- a/node_modules/clipboardy/lib/windows.js
 +++ b/node_modules/clipboardy/lib/windows.js
 @@ -4,9 +4,16 @@ const execa = require('execa');
  const arch = require('arch');
  
  // Binaries from: https://github.com/sindresorhus/win-clipboard
--const winBinPath = arch() === 'x64' ?
+-const windowBinaryPath = arch() === 'x64' ?
 -	path.join(__dirname, '../fallbacks/windows/clipboard_x86_64.exe') :
 -	path.join(__dirname, '../fallbacks/windows/clipboard_i686.exe');
-+let winBinPath;
++let windowBinaryPath;
 +if (process.pkg) {
-+	winBinPath = arch() === 'x64' ?
++	windowBinaryPath = arch() === 'x64' ?
 +		path.join(path.dirname(process.execPath), 'clipboardy/clipboard_x86_64.exe') :
 +		path.join(path.dirname(process.execPath), 'clipboardy/clipboard_i686.exe');
 +} else {
-+	winBinPath = arch() === 'x64' ?
++	windowBinaryPath = arch() === 'x64' ?
 +		path.join(__dirname, '../fallbacks/windows/clipboard_x86_64.exe') :
 +		path.join(__dirname, '../fallbacks/windows/clipboard_i686.exe');	
 +}
  
  module.exports = {
- 	copy: opts => execa(winBinPath, ['--copy'], opts),
+ 	copy: async options => execa(windowBinaryPath, ['--copy'], options),
