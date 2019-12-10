@@ -11,8 +11,10 @@
     "start": "node dist/index.js",
     "dev": "DEBUG=true nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:pkg:win": "npm run clean && tsc && pkg . --target win --out-path dist/",
-    "postbuild:pkg:win": "mkdir -p dist/clipboardy && cp node_modules/clipboardy/fallbacks/windows/* dist/clipboardy/"
+    "build:pkg:win": "npm run clean && tsc && pkg . --target win --out-path dist/pkg/",
+    "postbuild:pkg:win": "npm run copy-clipboardy-bin && npm run zip-pkg",
+    "copy-clipboardy-bin": "mkdir -p dist/pkg/clipboardy && cp node_modules/clipboardy/fallbacks/windows/* dist/pkg/clipboardy/",
+    "zip-pkg": "cd dist/pkg/ && bestzip ../type-away-$npm_package_version.zip *"
   },
   "author": "ledenis",
   "license": "MIT",
@@ -27,6 +29,7 @@
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/socket.io": "^2.1.4",
+    "bestzip": "^2.1.5",
     "nodemon": "^2.0.1",
     "patch-package": "^6.2.0",
     "pkg": "^4.4.0",
