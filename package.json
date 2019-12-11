@@ -1,6 +1,6 @@
 {
   "name": "type-away",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Enables remote devices to input UTF-8 text to Linux GUI applications (X11) as if it is typed from the local keyboard.",
   "main": "dist/index.js",
   "bin": "dist/index.js",
