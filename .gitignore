@@ -60,3 +60,4 @@ jspm_packages/
 # pkg, typescript output
 build
 dist
+pkg
