@@ -21,6 +21,10 @@
     "index.html"
   ],
   "author": "ledenis",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ledenis/type-away"
+  },
   "license": "MIT",
   "dependencies": {
     "clipboardy": "^2.1.0",
