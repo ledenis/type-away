@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:pkg:win": "npm run clean && tsc && pkg . --target win --out-path dist/pkg/",
     "postbuild:pkg:win": "npm run copy-clipboardy-bin && npm run zip-pkg",
-    "copy-clipboardy-bin": "mkdir -p dist/pkg/clipboardy && cp node_modules/clipboardy/fallbacks/windows/* dist/pkg/clipboardy/",
+    "copy-clipboardy-bin": "mkdir -p dist/pkg/clipboardy && cp node_modules/clipboardy/fallbacks/windows/clipboard_x86_64.exe dist/pkg/clipboardy/",
     "zip-pkg": "cd dist/pkg/ && bestzip ../type-away-$npm_package_version.zip *"
   },
   "author": "ledenis",
