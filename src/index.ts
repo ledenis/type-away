@@ -9,7 +9,7 @@ import * as internalIp from 'internal-ip'
 import * as qrcode from 'qrcode-terminal'
 import * as packageJson from '../package.json'
 import { logger } from './logger'
-import { XdotoolKey, LinuxRobot, WindowsRobot, MacRobot } from './robot'
+import { XdotoolKey, LinuxRobot, WindowsRobot, MacRobot, Robot } from './robot'
 
 main()
 
@@ -17,19 +17,6 @@ function main() {
   logger.log(`Type Away v${packageJson.version}`)
 
   const robot = createRobot()
-
-  function createRobot() {
-    switch (os.platform()) {
-      case 'linux':
-        return new LinuxRobot(!!process.env.TA_USE_CLIPBOARD)
-      case 'win32':
-        return new WindowsRobot()
-      case 'darwin':
-        return new MacRobot()
-      default:
-        throw new Error(`Unsupported platform ${os.platform()}`)
-    }
-  }
 
   const app = express()
   const httpServer = new http.Server(app)
@@ -39,6 +26,30 @@ function main() {
     res.sendFile(path.join(__dirname, '../index.html'))
   })
 
+  initSocketEvents(io, robot)
+
+  httpServer.listen(3000, () => {
+    const url = `http://${internalIp.v4.sync()}:3000`
+    logger.log(`Listening on ${url}`)
+    logger.log('You can access the URL above or scan this QR code:')
+    qrcode.generate(url, { small: true })
+  })
+}
+
+function createRobot(): Robot {
+  switch (os.platform()) {
+    case 'linux':
+      return new LinuxRobot(!!process.env.TA_USE_CLIPBOARD)
+    case 'win32':
+      return new WindowsRobot()
+    case 'darwin':
+      return new MacRobot()
+    default:
+      throw new Error(`Unsupported platform ${os.platform()}`)
+  }
+}
+
+function initSocketEvents(io: socketIo.Server, robot: Robot) {
   io.on('connection', (socket) => {
     logger.debug('user connected')
 
@@ -59,12 +70,5 @@ function main() {
     socket.on('disconnect', () => {
       logger.debug('user disconnected')
     })
-  })
-
-  httpServer.listen(3000, () => {
-    const url = `http://${internalIp.v4.sync()}:3000`
-    logger.log(`Listening on ${url}`)
-    logger.log('You can access the URL above or scan this QR code:')
-    qrcode.generate(url, { small: true })
   })
 }

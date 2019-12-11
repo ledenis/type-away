@@ -3,7 +3,7 @@ import * as clipboardy from 'clipboardy'
 import * as sendkeysJs from 'sendkeys-js'
 import { logger } from './logger'
 
-interface Robot {
+export interface Robot {
   typeText(text: string): void;
 
   pressKey(key: XdotoolKey): void;
