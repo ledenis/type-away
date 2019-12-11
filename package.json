@@ -14,7 +14,8 @@
     "build:pkg:win": "npm run clean && tsc && pkg . --target win --out-path pkg/",
     "postbuild:pkg:win": "npm run copy-clipboardy-bin && npm run zip-pkg",
     "copy-clipboardy-bin": "mkdir -p pkg/clipboardy && cp node_modules/clipboardy/fallbacks/windows/clipboard_x86_64.exe pkg/clipboardy/",
-    "zip-pkg": "cd pkg/ && bestzip type-away-$npm_package_version.zip *"
+    "zip-pkg": "cd pkg/ && bestzip type-away-$npm_package_version.zip *",
+    "prepublishOnly": "npm run clean && tsc"
   },
   "files": [
     "dist/",
