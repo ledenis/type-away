@@ -16,11 +16,11 @@ On Linux, you can force the clipboard mode by setting the env variable `TA_USE_C
 
 ## Requirements
 
-* node
+* Node.js
 
 And:
 * on Linux:
-  * xdotool
+  * `xdotool`
 * on Windows or Mac:
   * nothing special (uses PowerShell / AppleScript)
 
@@ -31,22 +31,40 @@ And:
 Then:
 * on Linux:
 
-    sudo apt-get install xdotool
+  ```
+  sudo apt-get install xdotool
+  ```
 
 ## Usage
 
 1. Launch the server:
 
-    `type-away`
+    ```
+    type-away
+    ```
 
 2. It will output something like:
 
-    `Listening on http://192.168.0.15:3000`
+    ```
+    Listening on http://192.168.0.15:3000
+    ```
 
 3. From a remote device (smartphone), open a browser and navigate to the given url (or scan the QR code)
 4. Input your text into the webpage
 
    The text is now written to the focused application.
+
+## Troubleshooting
+
+### When trying to open the url on the other device, it shows a blank page, but loads fine on the same computer
+
+Configure your firewall to allow `TCP` connections on port `3000`.
+
+Example with `ufw` (Linux firewall):
+
+```
+sudo ufw allow from any to any port 3000 proto tcp 
+```
 
 ## Build
 
