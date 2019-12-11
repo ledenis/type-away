@@ -1,6 +1,7 @@
 import { execSync } from 'child_process'
 import * as clipboardy from 'clipboardy'
 import * as sendkeysJs from 'sendkeys-js'
+import { logger } from './logger'
 
 interface Robot {
   typeText(text: string): void;
@@ -15,10 +16,23 @@ const xdotoolKeyToWindowsKeyCode: {[key in XdotoolKey]: string} = {
 
 export class WindowsRobot implements Robot {
   typeText(text: string) {
-    const previousContent = clipboardy.readSync()
+    let previousContent = this.tryReadClipboard()
+
     clipboardy.writeSync(text)
     sendkeysJs.send('^v')
-    clipboardy.writeSync(previousContent)
+
+    if (previousContent) {
+      clipboardy.writeSync(previousContent)
+    }
+  }
+
+  private tryReadClipboard(): string | undefined {
+    try {
+      return clipboardy.readSync()
+    } catch (error) {
+      logger.warn('Could not read from clipboard:', error.stack)
+    }
+    return
   }
 
   pressKey(key: XdotoolKey) {
