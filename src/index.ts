@@ -2,4 +2,4 @@
 
 import { bootstrapServer } from './server';
 
-bootstrapServer(process.env)
+bootstrapServer(process.env);

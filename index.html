@@ -42,34 +42,34 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script>
-      const socket = io()
+      const socket = io();
       const vm = new Vue({
         el: '#app',
         data: {
           input: '',
         },
         mounted() {
-          this.focusInput()
+          this.focusInput();
         },
         methods: {
           onSubmit() {
-            socket.emit('type', this.input)
+            socket.emit('type', this.input);
             this.input = ''
             this.focusInput();
           },
           onBackspace() {
-            socket.emit('key', 'BackSpace')
+            socket.emit('key', 'BackSpace');
             this.focusInput();
           },
           onEnter() {
-            socket.emit('key', 'Return')
+            socket.emit('key', 'Return');
             this.focusInput();
           },
           focusInput() {
-            this.$refs.input.focus()
+            this.$refs.input.focus();
           },
-        }
-      })
+        },
+      });
     </script>
   </body>
 </html>
