@@ -41,12 +41,12 @@
     "@types/socket.io": "^2.1.4",
     "@types/socket.io-client": "^1.4.32",
     "bestzip": "^2.1.5",
-    "nodemon": "^2.0.1",
+    "nodemon": "^2.0.2",
     "patch-package": "^6.2.0",
-    "pkg": "^4.4.0",
+    "pkg": "^4.4.2",
     "prettier": "^1.19.1",
     "socket.io-client": "^2.3.0",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.4"
   }
 }
