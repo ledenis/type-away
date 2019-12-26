@@ -63,7 +63,7 @@ Configure your firewall to allow `TCP` connections on port `3000`.
 Example with `ufw` (Linux firewall):
 
 ```
-sudo ufw allow from any to any port 3000 proto tcp 
+sudo ufw allow 3000/tcp
 ```
 
 ## Build
